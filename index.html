@@ -33,13 +33,12 @@
         .privacy-box p { font-size: 13px; color: #dddddd; margin-bottom: 0; line-height: 1.4; }
         .info { margin-top: 10px; font-size: 12px; color: #777; line-height: 1.4; }
 
-        /* --- СТАТУС И АККАУНТ --- */
         #user-badge { position: fixed; top: 15px; right: 15px; background: #222; padding: 10px 15px; border-radius: 20px; border: 1px solid #444; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 10px; z-index: 900; }
         #user-badge:hover { background: #333; }
+
         #server-status { position: fixed; bottom: 15px; left: 15px; background: #222; padding: 8px 15px; border-radius: 20px; border: 1px solid #444; font-size: 12px; z-index: 900; display: flex; align-items: center; gap: 8px; }
         .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #888; }
 
-        /* --- МОДАЛЬНОЕ ОКНО --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; }
         .modal-content { background: #222; padding: 25px; border-radius: 15px; width: 90%; max-width: 350px; border: 1px solid #444; text-align: center; }
         .modal-content h2 { color: #f1c40f; margin-bottom: 20px; }
@@ -49,7 +48,6 @@
         .btn-cancel { background: #444; color: white; }
         #auth-error { color: #ff4444; font-size: 13px; margin-bottom: 10px; display: none; }
 
-        /* --- ЧАТ ПОДДЕРЖКИ --- */
         #chat-button { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #1e88e5; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 1000; transition: 0.3s; }
         #chat-button:active { transform: scale(0.9); }
         
@@ -149,7 +147,7 @@
         <img src="icon.png" alt="Chess By Lord" class="logo" onerror="this.style.display='none'">
         <h1>Chess By Lord</h1>
         <p class="main-desc">Классические шахматы с умным ботом, игрой по сети и рейтинговой системой ЭЛО.</p>
-        <div class="version">Версия 1.3 (Последняя)</div>
+        <div class="version">Версия 1.4 (Последняя)</div>
         <a href="game.apk" class="download-btn" download>⬇️ Скачать APK</a>
         <div class="open-source-box">
             <p class="os-text">🚀 Игра имеет открытый исходный код</p>
@@ -185,7 +183,6 @@
         </div>
 
         <div id="admin-panel">
-            <!-- ГЛАВНОЕ МЕНЮ АДМИНА -->
             <div id="admin-main-menu">
                 <div class="admin-header">👑 Панель Админа <span onclick="toggleChat()" style="margin-left: auto; cursor:pointer;">✖</span></div>
                 <div class="admin-menu-grid">
@@ -194,7 +191,6 @@
                 </div>
             </div>
 
-            <!-- ПОДДЕРЖКА -->
             <div id="admin-support-view">
                 <div class="admin-header">
                     <button onclick="backToAdminMenu()">← Назад</button>
@@ -215,22 +211,19 @@
                 </div>
             </div>
 
-            <!-- МОДЕРАЦИЯ -->
             <div id="admin-moderation-view">
                 <div class="admin-header">
                     <button onclick="backToAdminMenu()">← Назад</button>
                     🚩 Центр Модерации
                 </div>
                 <div class="mod-tabs">
-                    <button class="mod-tab active" id="tab-suspicious" onclick="loadModeration('suspicious')">🚨 Подозрительные (Боты)</button>
-                    <button class="mod-tab" id="tab-toxic" onclick="loadModeration('toxic')">🤬 Токсичные (Мат)</button>
+                    <button class="mod-tab active" id="tab-suspicious" onclick="loadModeration('suspicious')">🚨 Подозрительные</button>
+                    <button class="mod-tab" id="tab-toxic" onclick="loadModeration('toxic')">🤬 Токсичные</button>
                 </div>
                 <div id="mod-list">
-                    <!-- Сюда будут загружаться карточки игроков -->
                 </div>
             </div>
 
-            <!-- ОКНО СТАТИСТИКИ ИГРОКА -->
             <div id="player-stats-modal">
                 <div id="stats-header">
                     <h3 id="stats-title" style="color:#f1c40f;">Статистика</h3>
@@ -261,7 +254,6 @@
             localStorage.setItem("chat_session_id", sessionId);
         }
 
-        // --- ПРОВЕРКА ПРЕДУПРЕЖДЕНИЙ ---
         function checkWarning() {
             if(!currentUser) return;
             fetch(`${API_URL}/sync_elo/${currentUser}`)
@@ -274,7 +266,6 @@
             });
         }
 
-        // --- СТАТУС СЕРВЕРА ---
         function checkServerStatus() {
             const statusDot = document.getElementById("status-dot");
             const statusText = document.getElementById("status-text");
@@ -307,14 +298,13 @@
         setInterval(checkServerStatus, 10000);
         checkServerStatus();
 
-        // --- АВТОРИЗАЦИЯ ---
         function updateUserBadge() {
             const info = document.getElementById("user-info");
             if (currentUser) {
                 info.innerText = `👤 ${currentUser} (${currentElo} ELO)`;
                 sessionId = currentUser;
                 localStorage.setItem("chat_session_id", sessionId);
-                checkWarning(); // Проверяем предупреждения при загрузке
+                checkWarning();
             } else {
                 info.innerText = "👤 Войти в аккаунт";
             }
@@ -365,7 +355,6 @@
                     localStorage.setItem("chat_session_id", sessionId);
                     updateUserBadge();
                     closeLogin();
-                    
                     if (loginSource === 'chat') { toggleChat(); }
                 } else if (res.status === 403) {
                     err.innerText = "ВЫ ЗАБАНЕНЫ!";
@@ -382,7 +371,6 @@
         }
         updateUserBadge();
 
-        // --- ЧАТ И АДМИНКА ---
         let isAdmin = false;
         let chatInterval = null;
 
@@ -397,17 +385,12 @@
                 openLogin('chat'); 
                 return;
             }
-
             if (chatWindow.style.display === "flex") {
                 chatWindow.style.display = "none";
                 clearInterval(chatInterval);
             } else {
                 chatWindow.style.display = "flex";
-                if(isAdmin) { 
-                    backToAdminMenu(); 
-                } else { 
-                    loadUserMessages(); 
-                }
+                if(isAdmin) { backToAdminMenu(); } else { loadUserMessages(); }
             }
         }
 
@@ -415,20 +398,16 @@
             if (e.key === "Enter") func();
         }
 
-        // --- КЛИЕНТ (ИГРОК) ---
         function sendUserMsg() {
             const input = document.getElementById("chat-input");
             const text = input.value.trim();
             if (!text) return;
-            
             if (text.toLowerCase() === "admin") {
                 input.value = "";
                 loginAdmin();
                 return;
             }
-
             const senderName = currentUser || "Гость";
-
             input.value = "";
             fetch(`${API_URL}/chat/send`, {
                 method: "POST",
@@ -450,7 +429,6 @@
         function loginAdmin() {
             const password = prompt("Введите пароль администратора:");
             if (password === null) return;
-            
             fetch(`${API_URL}/chat/admin_login`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -506,7 +484,6 @@
             chatInterval = setInterval(loadUserMessages, 3000);
         }
 
-        // --- АДМИНКА: НАВИГАЦИЯ ---
         function backToAdminMenu() {
             document.getElementById("admin-main-menu").style.display = "flex";
             document.getElementById("admin-support-view").style.display = "none";
@@ -528,7 +505,6 @@
             loadModeration('suspicious');
         }
 
-        // --- АДМИНКА: ПОДДЕРЖКА ---
         function loadAdminSessions() {
             fetch(`${API_URL}/chat/sessions`)
             .then(res => res.json())
@@ -594,7 +570,6 @@
             const text = input.value.trim();
             if (!text) return;
             input.value = "";
-            
             fetch(`${API_URL}/chat/send`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -611,7 +586,6 @@
             });
         }
 
-        // --- АДМИНКА: МОДЕРАЦИЯ ---
         function loadModeration(type) {
             document.getElementById("tab-suspicious").classList.remove("active");
             document.getElementById("tab-toxic").classList.remove("active");
@@ -636,7 +610,6 @@
                     const card = document.createElement("div");
                     card.className = "user-card";
                     card.onclick = (e) => {
-                        // Если кликнули по кнопкам, не открываем профиль
                         if(e.target.tagName === 'BUTTON') return;
                         showPlayerDetails(user.login);
                     }
@@ -662,18 +635,14 @@
                 body: JSON.stringify({ login: "DEV$DEV", password: "AKS.2GmOZx#Z", target: target, action: "warn" })
             })
             .then(res => {
-                if (res.ok) {
-                    alert(`Предупреждение отправлено игроку ${target}!`);
-                } else {
-                    alert("Ошибка при отправке предупреждения.");
-                }
+                if (res.ok) alert(`Предупреждение отправлено игроку ${target}!`);
+                else alert("Ошибка при отправке предупреждения.");
             })
             .catch(() => alert("Ошибка сети."));
         }
 
         function banUser(target) {
             if (!confirm(`Вы уверены, что хотите забанить ${target}?`)) return;
-
             fetch(`${API_URL}/admin/ban_user`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -691,7 +660,6 @@
             .catch(() => alert("Ошибка сети."));
         }
 
-        // --- СТАТИСТИКА ИГРОКА ---
         function showPlayerDetails(login) {
             const modal = document.getElementById("player-stats-modal");
             document.getElementById("stats-title").innerText = `Статистика: ${login}`;
