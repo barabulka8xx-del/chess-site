@@ -111,7 +111,7 @@
 </head>
 <body>
     <div id="user-badge" onclick="openLogin('site')">
-        <span id="user-info">Войти в аккаунт</span>
+        <span id="user-info">👤 Войти в аккаунт</span>
     </div>
 
     <div class="modal-overlay" id="login-modal">
@@ -132,23 +132,23 @@
         
         <div class="version">Версия 1.2 (Последняя)</div>
         
-        <a href="game.apk" class="download-btn" download>Скачать APK</a>
+        <a href="game.apk" class="download-btn" download>⬇️ Скачать APK</a>
 
         <div class="open-source-box">
-            <p class="os-text">Игра имеет открытый исходный код</p>
+            <p class="os-text">🚀 Игра имеет открытый исходный код</p>
             <a href="https://github.com/barabulka8xx-del/chess-app" target="_blank" class="github-btn">Посмотреть исходный код</a>
             <p class="copyright">© 2024 Chess By Lord. Все права защищены.</p>
         </div>
         
         <div class="warning-box">
-            <h3>Внимание при установке</h3>
+            <h3>⚠️ Внимание при установке</h3>
             <p>Play Защита может заблокировать установку и написать, что приложение «подозрительное». <b>Не пугайтесь!</b> Это происходит со всеми играми не из Google Play.</p>
             <p>Просто нажмите <b>«Подробнее»</b> -> <b>«Все равно установить»</b>.</p>
             <img src="warning.jpg" class="warning-img" onerror="this.style.display='none'">
         </div>
 
         <div class="privacy-box">
-            <h3>Ваша конфиденциальность</h3>
+            <h3>🔒 Ваша конфиденциальность</h3>
             <p>Игра абсолютно безопасна и <b>не собирает никаких личных данных</b>. У нас нет скрытых вирусов, мы не читаем ваши файлы и не передаем информацию третьим лицам.</p>
         </div>
     </div>
@@ -159,7 +159,7 @@
     <div id="chat-window">
         <div id="user-view" style="display: flex; flex-direction: column; height: 100%;">
             <div id="chat-header">
-                <span>Чат поддержки</span>
+                <span>🛠️ Чат поддержки</span>
                 <span onclick="toggleChat()">✖</span>
             </div>
             <div id="chat-messages"></div>
@@ -170,7 +170,7 @@
         </div>
 
         <div id="admin-panel">
-            <div id="admin-header">Панель Админа <span onclick="toggleChat()" style="float:right; cursor:pointer;">✖</span></div>
+            <div id="admin-header">👑 Панель Админа <span onclick="toggleChat()" style="float:right; cursor:pointer;">✖</span></div>
             <div id="admin-sessions"></div>
             <div id="admin-chat-area">
                 <div id="admin-chat-header">
@@ -187,7 +187,7 @@
     </div>
 
     <script>
-        // ТВОЙ ЛИЧНЫЙ ПРОКСИ CLOUDFLARE
+        // ИСПОЛЬЗУЕМ ТВОЙ ЛИЧНЫЙ ПРОКСИ CLOUDFLARE
         const API_URL = "https://chess-proxy.potapivan1999.workers.dev/?url=http://node.waifly.com:27402";
         
         let currentUser = localStorage.getItem("site_current_user") || null;
@@ -208,7 +208,7 @@
                 sessionId = currentUser;
                 localStorage.setItem("chat_session_id", sessionId);
             } else {
-                info.innerText = "Войти в аккаунт";
+                info.innerText = "👤 Войти в аккаунт";
             }
         }
 
