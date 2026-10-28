@@ -217,31 +217,43 @@
             localStorage.setItem("chat_session_id", sessionId);
         }
 
-        // --- ПРОВЕРКА СТАТУСА СЕРВЕРА ---
+        // --- ПРОВЕРКА СТАТУСА СЕРВЕРА (С ТАЙМАУТОМ И ЖЕЛТЫМ СТАТУСОМ) ---
         function checkServerStatus() {
             const statusDot = document.getElementById("status-dot");
             const statusText = document.getElementById("status-text");
 
-            fetch(`${API_URL}/ping`)
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000); // Ждем 8 секунд
+
+            fetch(`${API_URL}/ping`, { signal: controller.signal })
             .then(res => {
+                clearTimeout(timeoutId);
                 if (res.ok) return res.json();
-                throw new Error("Offline");
+                throw new Error("ServerError");
             })
             .then(data => {
                 if (data.status === "alive") {
                     statusDot.style.background = "#4cd137"; // Зеленый
                     statusText.innerText = "Сервер онлайн";
                 } else {
-                    throw new Error("Offline");
+                    throw new Error("ServerError");
                 }
             })
-            .catch(() => {
-                statusDot.style.background = "#e53935"; // Красный
-                statusText.innerText = "Сервер офлайн";
+            .catch((error) => {
+                clearTimeout(timeoutId);
+                if (error.name === 'AbortError') {
+                    // Если прокси завис (таймаут)
+                    statusDot.style.background = "#f1c40f"; // Желтый
+                    statusText.innerText = "Ошибка проверки";
+                } else {
+                    // Если сервер упал или нет сети
+                    statusDot.style.background = "#e53935"; // Красный
+                    statusText.innerText = "Сервер офлайн";
+                }
             });
         }
 
-        // Запускаем проверку каждые 10 секунд и сразу при загрузке
+        // Проверяем статус каждые 10 секунд и сразу при загрузке
         setInterval(checkServerStatus, 10000);
         checkServerStatus();
 
