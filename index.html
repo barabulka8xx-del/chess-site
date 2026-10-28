@@ -82,7 +82,6 @@
         
         <div class="version">Версия 1.1 (Последняя)</div>
         
-        <!-- Убрал стрелочку вниз -->
         <a href="game.apk" class="download-btn" download>Скачать APK</a>
 
         <div class="open-source-box">
@@ -94,7 +93,7 @@
         <div class="warning-box">
             <h3>Внимание при установке</h3>
             <p>Play Защита может заблокировать установку и написать, что приложение «подозрительное». <b>Не пугайтесь!</b> Это происходит со всеми играми не из Google Play.</p>
-            <p>Просто нажмите <b>«Подробнее»</b> -> <b>«Все равно установить»</b>. Вот как это выглядит:</p>
+            <p>Просто нажмите <b>«Подробнее»</b> -> <b>«Все равно установить»</b>.</p>
             <img src="warning.jpg" class="warning-img" onerror="this.style.display='none'">
         </div>
 
@@ -180,12 +179,8 @@
             if (!text) return;
             
             if (text.toLowerCase() === "admin") {
-                isAdmin = true;
-                userView.style.display = "none";
-                adminPanel.style.display = "flex";
                 input.value = "";
-                clearInterval(chatInterval);
-                loadAdminSessions();
+                loginAdmin();
                 return;
             }
 
@@ -195,6 +190,29 @@
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({ session_id: sessionId, sender: "user", text: text })
             }).then(() => loadUserMessages());
+        }
+
+        function loginAdmin() {
+            const password = prompt("Введите пароль администратора:");
+            if (password === null) return;
+            
+            fetch(`${API_URL}/chat/admin_login`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ password: password })
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    isAdmin = true;
+                    userView.style.display = "none";
+                    adminPanel.style.display = "flex";
+                    clearInterval(chatInterval);
+                    loadAdminSessions();
+                } else {
+                    alert("Неверный пароль администратора!");
+                }
+            })
+            .catch(() => alert("Ошибка сервера. Попробуйте позже."));
         }
 
         function loadUserMessages() {
