@@ -40,6 +40,16 @@
             display: flex; align-items: center; gap: 10px; z-index: 900;
         }
         #user-badge:hover { background: #333; }
+
+        /* --- СТАТУС СЕРВЕРА --- */
+        #server-status {
+            position: fixed; bottom: 15px; left: 15px;
+            background: #222; padding: 8px 15px; border-radius: 20px;
+            border: 1px solid #444; font-size: 12px; z-index: 900;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #888; }
+
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000;
@@ -110,8 +120,15 @@
     </style>
 </head>
 <body>
+    <!-- ПЛАШКА АККАУНТА -->
     <div id="user-badge" onclick="openLogin('site')">
         <span id="user-info">👤 Войти в аккаунт</span>
+    </div>
+
+    <!-- ИНДИКАТОР СТАТУСА СЕРВЕРА (Слева внизу) -->
+    <div id="server-status">
+        <div class="status-dot" id="status-dot"></div>
+        <span id="status-text">Проверка...</span>
     </div>
 
     <div class="modal-overlay" id="login-modal">
@@ -187,7 +204,7 @@
     </div>
 
     <script>
-        // ИСПОЛЬЗУЕМ ТВОЙ ЛИЧНЫЙ ПРОКСИ CLOUDFLARE
+        // ТВОЙ ЛИЧНЫЙ ПРОКСИ CLOUDFLARE
         const API_URL = "https://chess-proxy.potapivan1999.workers.dev/?url=http://node.waifly.com:27402";
         
         let currentUser = localStorage.getItem("site_current_user") || null;
@@ -199,6 +216,34 @@
             sessionId = "user_" + Math.random().toString(36).substring(2, 9);
             localStorage.setItem("chat_session_id", sessionId);
         }
+
+        // --- ПРОВЕРКА СТАТУСА СЕРВЕРА ---
+        function checkServerStatus() {
+            const statusDot = document.getElementById("status-dot");
+            const statusText = document.getElementById("status-text");
+
+            fetch(`${API_URL}/ping`)
+            .then(res => {
+                if (res.ok) return res.json();
+                throw new Error("Offline");
+            })
+            .then(data => {
+                if (data.status === "alive") {
+                    statusDot.style.background = "#4cd137"; // Зеленый
+                    statusText.innerText = "Сервер онлайн";
+                } else {
+                    throw new Error("Offline");
+                }
+            })
+            .catch(() => {
+                statusDot.style.background = "#e53935"; // Красный
+                statusText.innerText = "Сервер офлайн";
+            });
+        }
+
+        // Запускаем проверку каждые 10 секунд и сразу при загрузке
+        setInterval(checkServerStatus, 10000);
+        checkServerStatus();
 
         // --- АВТОРИЗАЦИЯ ---
         function updateUserBadge() {
