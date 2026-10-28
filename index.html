@@ -153,6 +153,7 @@
         </div>
     </div>
 
+    <!-- КНОПКА И ОКНО ЧАТА -->
     <div id="chat-button" onclick="toggleChat()">💬</div>
     
     <div id="chat-window">
@@ -186,8 +187,8 @@
     </div>
 
     <script>
-        // ИСПОЛЬЗУЕМ БОЛЕЕ СТАБИЛЬНЫЙ ПРОКСИ ДЛЯ POST-ЗАПРОСОВ
-        const API_URL = "https://test.cors.workers.dev/?http://node.waifly.com:27402";
+        // ТВОЙ ЛИЧНЫЙ ПРОКСИ CLOUDFLARE
+        const API_URL = "https://chess-proxy.potapivan1999.workers.dev/?url=http://node.waifly.com:27402";
         
         let currentUser = localStorage.getItem("site_current_user") || null;
         let currentElo = localStorage.getItem("site_current_elo") || null;
