@@ -153,7 +153,6 @@
         </div>
     </div>
 
-    <!-- КНОПКА И ОКНО ЧАТА -->
     <div id="chat-button" onclick="toggleChat()">💬</div>
     
     <div id="chat-window">
@@ -187,12 +186,13 @@
     </div>
 
     <script>
-        const API_URL = "https://corsproxy.io/?http://node.waifly.com:27402";
+        // ИСПОЛЬЗУЕМ БОЛЕЕ СТАБИЛЬНЫЙ ПРОКСИ ДЛЯ POST-ЗАПРОСОВ
+        const API_URL = "https://test.cors.workers.dev/?http://node.waifly.com:27402";
         
         let currentUser = localStorage.getItem("site_current_user") || null;
         let currentElo = localStorage.getItem("site_current_elo") || null;
         let sessionId = localStorage.getItem("chat_session_id");
-        let loginSource = 'site'; // Откуда открыли окно входа: 'site' или 'chat'
+        let loginSource = 'site'; 
 
         if (!sessionId) {
             sessionId = "user_" + Math.random().toString(36).substring(2, 9);
@@ -257,7 +257,6 @@
                     updateUserBadge();
                     closeLogin();
                     
-                    // Если логинились ради чата - открываем его
                     if (loginSource === 'chat') {
                         toggleChat();
                     }
@@ -266,7 +265,10 @@
                     err.style.display = "block";
                 }
             })
-            .catch(() => { err.innerText = "Ошибка сервера"; err.style.display = "block"; });
+            .catch(() => { 
+                err.innerText = "Ошибка сервера. Проверьте соединение."; 
+                err.style.display = "block"; 
+            });
         }
         updateUserBadge();
 
@@ -281,10 +283,9 @@
         const userView = document.getElementById("user-view");
         
         function toggleChat() {
-            // ГЛАВНАЯ ПРОВЕРКА: Без входа в чат не пускаем
             if (!currentUser) {
                 alert("Для доступа в чат поддержки необходимо авторизоваться.");
-                openLogin('chat'); // Открываем окно входа и помечаем, что пришли из чата
+                openLogin('chat'); 
                 return;
             }
 
@@ -329,7 +330,7 @@
                 }
                 loadUserMessages();
             })
-            .catch(() => alert("Ошибка сети."));
+            .catch(() => alert("Ошибка сети. Попробуйте позже."));
         }
 
         function loginAdmin() {
