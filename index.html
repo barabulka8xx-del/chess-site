@@ -38,28 +38,40 @@
         }
         .download-btn:active { background: #44bd32; transform: scale(0.98); }
         
-        /* Блок Open Source с радужной обводкой */
+        /* Блок Open Source с переливающейся радужной обводкой */
         .open-source-box {
             position: relative;
             padding: 20px 15px;
             text-align: center;
             margin-bottom: 25px;
             border-radius: 15px;
+            background: rgba(30, 30, 30, 0.8);
         }
+        
+        /* Сама анимированная рамка */
         .open-source-box::before {
             content: "";
             position: absolute;
             inset: 0;
             border-radius: 15px;
-            padding: 3px; /* Толщина радужной рамки */
-            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            padding: 3px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff, #ff0000);
+            background-size: 300% 100%;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
+            animation: rainbow-flow 4s linear infinite;
         }
+
+        /* Анимация движения цветов */
+        @keyframes rainbow-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
         .os-text {
-            font-size: 14px;
+            font-size: 15px;
             margin-bottom: 15px;
             color: #ffffff;
             line-height: 1.4;
@@ -145,12 +157,15 @@
         
         <a href="game.apk" class="download-btn" download>⬇️ Скачать APK</a>
 
-        <!-- Блок 1: Open Source с радужной рамкой (перенесен наверх) -->
+        <!-- Блок 1: Open Source с анимированной рамкой -->
         <div class="open-source-box">
             <p class="os-text">🚀 Игра имеет открытый исходный код</p>
+            
+            <!-- Убрали слово GitHub из текста кнопки -->
             <a href="https://github.com/barabulka8xx-del/chess-app" target="_blank" class="github-btn">
-                Посмотреть код на GitHub
+                Посмотреть исходный код
             </a>
+            
             <p class="copyright">
                 © 2024 Chess By Lord. Все права защищены.<br>
                 Копирование ассетов и дизайна без разрешения запрещено.
@@ -163,7 +178,6 @@
             <p>Play Защита может заблокировать установку и написать, что приложение «подозрительное». <b>Не пугайтесь!</b> Это происходит со всеми играми не из Google Play.</p>
             <p>Просто нажмите <b>«Подробнее»</b> -> <b>«Все равно установить»</b>. Вот как это выглядит:</p>
             
-            <!-- Твой скриншот предупреждения -->
             <img src="warning.jpg" alt="Пример предупреждения Android" class="warning-img" onerror="this.style.display='none'">
         </div>
 
