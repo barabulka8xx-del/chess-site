@@ -38,7 +38,7 @@
         }
         .download-btn:active { background: #44bd32; transform: scale(0.98); }
         
-        /* Стили для блока с предупреждением */
+        /* Блок с предупреждением */
         .warning-box {
             background: rgba(241, 196, 15, 0.1);
             border: 1px solid rgba(241, 196, 15, 0.3);
@@ -69,12 +69,14 @@
             display: block;
         }
         
+        /* Блок конфиденциальности */
         .privacy-box {
             background: rgba(76, 209, 55, 0.1);
             border: 1px solid rgba(76, 209, 55, 0.3);
             border-radius: 15px;
             padding: 15px;
             text-align: left;
+            margin-bottom: 25px;
         }
         .privacy-box h3 {
             color: #4cd137;
@@ -90,11 +92,35 @@
             margin-bottom: 0;
             line-height: 1.4;
         }
+
+        /* Блок Open Source и копирайта */
+        .footer-box {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-box p.os-text {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #bbbbbb;
+            line-height: 1.4;
+        }
+        .github-btn {
+            display: inline-block; background: #24292e; color: white;
+            text-decoration: none; padding: 10px 20px; border-radius: 10px;
+            font-size: 14px; font-weight: bold; border: 1px solid #444;
+            transition: 0.3s;
+        }
+        .github-btn:active { background: #000; }
+        .copyright {
+            margin-top: 20px; font-size: 12px; color: #666; line-height: 1.5;
+        }
         .info { margin-top: 20px; font-size: 12px; color: #777; line-height: 1.4; }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Иконка подтянется из файла icon.png в этой же папке -->
         <img src="icon.png" alt="Chess By Lord" class="logo" onerror="this.style.display='none'">
         
         <h1>Chess By Lord</h1>
@@ -110,15 +136,30 @@
             <p>Play Защита может заблокировать установку и написать, что приложение «подозрительное». <b>Не пугайтесь!</b> Это происходит со всеми играми не из Google Play.</p>
             <p>Просто нажмите <b>«Подробнее»</b> -> <b>«Все равно установить»</b>. Вот как это выглядит:</p>
             
-            <!-- СЮДА ВСТАВЛЯЕТСЯ ТВОЙ СКРИНШОТ -->
+            <!-- СЮДА ВСТАВЛЯЕТСЯ ТВОЙ СКРИНШОТ (warning.jpg) -->
             <img src="warning.jpg" alt="Пример предупреждения Android" class="warning-img" onerror="this.style.display='none'">
-            
         </div>
 
         <!-- Блок 2: Про конфиденциальность -->
         <div class="privacy-box">
             <h3>🔒 Ваша конфиденциальность</h3>
             <p>Игра абсолютно безопасна и <b>не собирает никаких личных данных</b>. У нас нет скрытых вирусов, мы не читаем ваши файлы и не передаем информацию третьим лицам. Это полностью открытый инди-проект.</p>
+        </div>
+
+        <!-- Блок 3: Open Source и копирайт -->
+        <div class="footer-box">
+            <p class="os-text">
+                🚀 Игра имеет <b>открытый исходный код</b>.<br>
+                Вы можете посмотреть его на GitHub:
+            </p>
+            <a href="https://github.com/barabulka8xx-del/chess-app" target="_blank" class="github-btn">
+                Исходный код (GitHub)
+            </a>
+            
+            <p class="copyright">
+                © 2024 Chess By Lord. Все права защищены.<br>
+                Любое копирование игровых ассетов, дизайна или названия без разрешения автора запрещено.
+            </p>
         </div>
         
         <div class="info">
