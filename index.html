@@ -32,62 +32,25 @@
         .privacy-box p { font-size: 13px; color: #dddddd; margin-bottom: 0; line-height: 1.4; }
         .info { margin-top: 10px; font-size: 12px; color: #777; line-height: 1.4; }
 
-        /* --- СТИЛИ АВТОРИЗАЦИИ --- */
-        #user-badge {
-            position: fixed; top: 15px; right: 15px;
-            background: #222; padding: 10px 15px; border-radius: 20px;
-            border: 1px solid #444; font-size: 14px; cursor: pointer;
-            display: flex; align-items: center; gap: 10px; z-index: 900;
-        }
+        #user-badge { position: fixed; top: 15px; right: 15px; background: #222; padding: 10px 15px; border-radius: 20px; border: 1px solid #444; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 10px; z-index: 900; }
         #user-badge:hover { background: #333; }
 
-        /* --- СТАТУС СЕРВЕРА --- */
-        #server-status {
-            position: fixed; bottom: 15px; left: 15px;
-            background: #222; padding: 8px 15px; border-radius: 20px;
-            border: 1px solid #444; font-size: 12px; z-index: 900;
-            display: flex; align-items: center; gap: 8px;
-        }
+        #server-status { position: fixed; bottom: 15px; left: 15px; background: #222; padding: 8px 15px; border-radius: 20px; border: 1px solid #444; font-size: 12px; z-index: 900; display: flex; align-items: center; gap: 8px; }
         .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #888; }
 
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000;
-        }
-        .modal-content {
-            background: #222; padding: 25px; border-radius: 15px; width: 90%; max-width: 350px;
-            border: 1px solid #444; text-align: center;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .modal-content { background: #222; padding: 25px; border-radius: 15px; width: 90%; max-width: 350px; border: 1px solid #444; text-align: center; }
         .modal-content h2 { color: #f1c40f; margin-bottom: 20px; }
-        .modal-content input {
-            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px;
-            border: 1px solid #444; background: #111; color: #fff; font-size: 15px; outline: none;
-        }
-        .modal-content button {
-            width: 100%; padding: 12px; border: none; border-radius: 8px;
-            font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px;
-        }
+        .modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-size: 15px; outline: none; }
+        .modal-content button { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
         .btn-login { background: #4cd137; color: white; }
         .btn-cancel { background: #444; color: white; }
         #auth-error { color: #ff4444; font-size: 13px; margin-bottom: 10px; display: none; }
 
-        /* --- СТИЛИ ЧАТА --- */
-        #chat-button {
-            position: fixed; bottom: 20px; right: 20px;
-            width: 60px; height: 60px; background: #1e88e5; color: white;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            z-index: 1000; transition: 0.3s;
-        }
+        #chat-button { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #1e88e5; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 1000; transition: 0.3s; }
         #chat-button:active { transform: scale(0.9); }
         
-        #chat-window {
-            position: fixed; bottom: 90px; right: 20px;
-            width: 320px; height: 450px; background: #222;
-            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            display: none; flex-direction: column; z-index: 1000;
-            border: 1px solid #444; overflow: hidden;
-        }
+        #chat-window { position: fixed; bottom: 90px; right: 20px; width: 320px; height: 450px; background: #222; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; flex-direction: column; z-index: 1000; border: 1px solid #444; overflow: hidden; }
         #chat-header { background: #1e88e5; padding: 15px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; align-items: center; }
         #chat-header span { cursor: pointer; font-size: 20px; }
         #chat-messages { flex: 1; padding: 10px; overflow-y: auto; text-align: left; display: flex; flex-direction: column; gap: 15px; }
@@ -104,7 +67,6 @@
         #chat-input { flex: 1; padding: 10px; border: none; border-radius: 5px; background: #222; color: #fff; outline: none; }
         #chat-send { background: #1e88e5; color: #fff; border: none; padding: 0 15px; margin-left: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
-        /* АДМИН ПАНЕЛЬ */
         #admin-panel { display: none; flex-direction: column; height: 100%; }
         #admin-header { background: #e53935; padding: 10px; font-weight: bold; }
         #admin-sessions { flex: 1; overflow-y: auto; padding: 10px; }
@@ -120,12 +82,10 @@
     </style>
 </head>
 <body>
-    <!-- ПЛАШКА АККАУНТА -->
     <div id="user-badge" onclick="openLogin('site')">
         <span id="user-info">👤 Войти в аккаунт</span>
     </div>
 
-    <!-- ИНДИКАТОР СТАТУСА СЕРВЕРА (Слева внизу) -->
     <div id="server-status">
         <div class="status-dot" id="status-dot"></div>
         <span id="status-text">Проверка...</span>
@@ -170,7 +130,6 @@
         </div>
     </div>
 
-    <!-- КНОПКА И ОКНО ЧАТА -->
     <div id="chat-button" onclick="toggleChat()">💬</div>
     
     <div id="chat-window">
@@ -196,7 +155,7 @@
                 </div>
                 <div id="admin-messages"></div>
                 <div id="admin-input-area">
-                    <input type="text" id="admin-input" placeholder="Ответить..." onkeypress="handleEnter(event, sendAdminMsg)">
+                    <input type="text" id="admin-input" placeholder="Ответить или /ban Ник..." onkeypress="handleEnter(event, sendAdminMsg)">
                     <button id="admin-send" onclick="sendAdminMsg()">➤</button>
                 </div>
             </div>
@@ -204,7 +163,6 @@
     </div>
 
     <script>
-        // ТВОЙ ЛИЧНЫЙ ПРОКСИ CLOUDFLARE
         const API_URL = "https://chess-proxy.potapivan1999.workers.dev/?url=http://node.waifly.com:27402";
         
         let currentUser = localStorage.getItem("site_current_user") || null;
@@ -217,13 +175,12 @@
             localStorage.setItem("chat_session_id", sessionId);
         }
 
-        // --- ПРОВЕРКА СТАТУСА СЕРВЕРА (С ТАЙМАУТОМ И ЖЕЛТЫМ СТАТУСОМ) ---
+        // --- СТАТУС СЕРВЕРА ---
         function checkServerStatus() {
             const statusDot = document.getElementById("status-dot");
             const statusText = document.getElementById("status-text");
-
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000); // Ждем 8 секунд
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
 
             fetch(`${API_URL}/ping`, { signal: controller.signal })
             .then(res => {
@@ -233,27 +190,21 @@
             })
             .then(data => {
                 if (data.status === "alive") {
-                    statusDot.style.background = "#4cd137"; // Зеленый
+                    statusDot.style.background = "#4cd137";
                     statusText.innerText = "Сервер онлайн";
-                } else {
-                    throw new Error("ServerError");
-                }
+                } else { throw new Error("ServerError"); }
             })
             .catch((error) => {
                 clearTimeout(timeoutId);
                 if (error.name === 'AbortError') {
-                    // Если прокси завис (таймаут)
-                    statusDot.style.background = "#f1c40f"; // Желтый
+                    statusDot.style.background = "#f1c40f";
                     statusText.innerText = "Ошибка проверки";
                 } else {
-                    // Если сервер упал или нет сети
-                    statusDot.style.background = "#e53935"; // Красный
+                    statusDot.style.background = "#e53935";
                     statusText.innerText = "Сервер офлайн";
                 }
             });
         }
-
-        // Проверяем статус каждые 10 секунд и сразу при загрузке
         setInterval(checkServerStatus, 10000);
         checkServerStatus();
 
@@ -315,9 +266,10 @@
                     updateUserBadge();
                     closeLogin();
                     
-                    if (loginSource === 'chat') {
-                        toggleChat();
-                    }
+                    if (loginSource === 'chat') { toggleChat(); }
+                } else if (res.status === 403) {
+                    err.innerText = "ВЫ ЗАБАНЕНЫ ЗА ЧИТЕРСТВО!";
+                    err.style.display = "block";
                 } else {
                     err.innerText = "Неверный логин или пароль";
                     err.style.display = "block";
@@ -451,19 +403,54 @@
         }
 
         function loadAdminSessions() {
-            fetch(`${API_URL}/chat/sessions`)
+            // Загружаем подозрительных (читеров)
+            fetch(`${API_URL}/admin/suspicious_users`)
             .then(res => res.json())
             .then(data => {
                 const container = document.getElementById("admin-sessions");
                 container.innerHTML = "";
-                data.sessions.forEach(s => {
-                    const btn = document.createElement("button");
-                    btn.className = "session-btn";
-                    btn.innerHTML = `<b>${s.session_id}</b><br><small>${s.last_message}</small>`;
-                    btn.onclick = () => openAdminChat(s.session_id);
-                    container.appendChild(btn);
+                
+                if (data.users.length > 0) {
+                    const alertDiv = document.createElement("div");
+                    alertDiv.style.background = "#e53935";
+                    alertDiv.style.padding = "10px";
+                    alertDiv.style.borderRadius = "5px";
+                    alertDiv.style.marginBottom = "10px";
+                    alertDiv.style.fontSize = "13px";
+                    alertDiv.innerHTML = `<b>🚨 Подозрительные (боты):</b><br>${data.users.join(", ")}<br><small>Напишите /ban Ник, чтобы забанить</small>`;
+                    container.prepend(alertDiv);
+                }
+                
+                // Загружаем токсичных
+                fetch(`${API_URL}/admin/toxic_users`)
+                .then(res => res.json())
+                .then(toxicData => {
+                    if (toxicData.users.length > 0) {
+                        const toxicDiv = document.createElement("div");
+                        toxicDiv.style.background = "#f39c12"; // Оранжевый
+                        toxicDiv.style.padding = "10px";
+                        toxicDiv.style.borderRadius = "5px";
+                        toxicDiv.style.marginBottom = "10px";
+                        toxicDiv.style.fontSize = "13px";
+                        toxicDiv.innerHTML = `<b>🤬 Токсичные (мат/спам):</b><br>${toxicData.users.join(", ")}<br><small>Напишите /ban Ник, чтобы забанить</small>`;
+                        container.prepend(toxicDiv);
+                    }
+                    
+                    // Загружаем сессии чата
+                    fetch(`${API_URL}/chat/sessions`)
+                    .then(res => res.json())
+                    .then(sessions => {
+                        sessions.sessions.forEach(s => {
+                            const btn = document.createElement("button");
+                            btn.className = "session-btn";
+                            btn.innerHTML = `<b>${s.session_id}</b><br><small>${s.last_message}</small>`;
+                            btn.onclick = () => openAdminChat(s.session_id);
+                            container.appendChild(btn);
+                        });
+                    });
                 });
             });
+            
             clearInterval(chatInterval);
             chatInterval = setInterval(loadAdminSessions, 3000);
         }
@@ -503,6 +490,29 @@
             const text = input.value.trim();
             if (!text) return;
             input.value = "";
+
+            if (text.startsWith("/ban ")) {
+                const targetUser = text.split(" ")[1];
+                fetch(`${API_URL}/admin/ban_user`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ login: "DEV$DEV", password: "AKS.2GmOZx#Z", target: targetUser, action: "ban" })
+                }).then(res => {
+                    if (res.ok) alert(`Пользователь ${targetUser} забанен!`);
+                    else alert("Ошибка бана (пользователь не найден).");
+                });
+                return;
+            }
+
+            if (text.startsWith("/unban ")) {
+                const targetUser = text.split(" ")[1];
+                fetch(`${API_URL}/admin/ban_user`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ login: "DEV$DEV", password: "AKS.2GmOZx#Z", target: targetUser, action: "unban" })
+                }).then(() => alert(`Пользователь ${targetUser} разбанен!`));
+                return;
+            }
             
             fetch(`${API_URL}/chat/send`, {
                 method: "POST",
