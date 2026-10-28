@@ -38,7 +38,7 @@
         }
         .download-btn:active { background: #44bd32; transform: scale(0.98); }
         
-        /* Блок Open Source с переливающейся радужной обводкой */
+        /* Блок Open Source с переливающейся обводкой */
         .open-source-box {
             position: relative;
             padding: 20px 15px;
@@ -47,8 +47,6 @@
             border-radius: 15px;
             background: rgba(30, 30, 30, 0.8);
         }
-        
-        /* Сама анимированная рамка */
         .open-source-box::before {
             content: "";
             position: absolute;
@@ -63,13 +61,10 @@
             pointer-events: none;
             animation: rainbow-flow 4s linear infinite;
         }
-
-        /* Анимация движения цветов */
         @keyframes rainbow-flow {
             0% { background-position: 0% 50%; }
             100% { background-position: 100% 50%; }
         }
-
         .os-text {
             font-size: 15px;
             margin-bottom: 15px;
@@ -142,6 +137,67 @@
             margin-bottom: 0;
             line-height: 1.4;
         }
+
+        /* Блок поддержки */
+        .support-box {
+            background: rgba(30, 136, 229, 0.1);
+            border: 1px solid rgba(30, 136, 229, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .support-box h3 {
+            color: #42a5f5;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .support-box p {
+            font-size: 13px;
+            color: #dddddd;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .support-form input, .support-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #222;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+        .support-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .support-form button {
+            width: 100%;
+            padding: 12px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .support-form button:active {
+            background: #1565c0;
+        }
+        #form-status {
+            margin-top: 10px;
+            font-size: 13px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
         
         .info { margin-top: 10px; font-size: 12px; color: #777; line-height: 1.4; }
     </style>
@@ -153,44 +209,105 @@
         <h1>Chess By Lord</h1>
         <p class="main-desc">Классические шахматы с умным ботом, игрой по сети и рейтинговой системой ЭЛО.</p>
         
-        <div class="version">Версия 1.0 (Последняя)</div>
+        <div class="version">Версия 1.1 (Последняя)</div>
         
         <a href="game.apk" class="download-btn" download>⬇️ Скачать APK</a>
 
-        <!-- Блок 1: Open Source с анимированной рамкой -->
         <div class="open-source-box">
             <p class="os-text">🚀 Игра имеет открытый исходный код</p>
-            
-            <!-- Убрали слово GitHub из текста кнопки -->
             <a href="https://github.com/barabulka8xx-del/chess-app" target="_blank" class="github-btn">
                 Посмотреть исходный код
             </a>
-            
             <p class="copyright">
                 © 2024 Chess By Lord. Все права защищены.<br>
                 Копирование ассетов и дизайна без разрешения запрещено.
             </p>
         </div>
         
-        <!-- Блок 2: Предупреждение Play Защиты -->
         <div class="warning-box">
             <h3>⚠️ Внимание при установке</h3>
             <p>Play Защита может заблокировать установку и написать, что приложение «подозрительное». <b>Не пугайтесь!</b> Это происходит со всеми играми не из Google Play.</p>
             <p>Просто нажмите <b>«Подробнее»</b> -> <b>«Все равно установить»</b>. Вот как это выглядит:</p>
-            
             <img src="warning.jpg" alt="Пример предупреждения Android" class="warning-img" onerror="this.style.display='none'">
         </div>
 
-        <!-- Блок 3: Конфиденциальность -->
         <div class="privacy-box">
             <h3>🔒 Ваша конфиденциальность</h3>
             <p>Игра абсолютно безопасна и <b>не собирает никаких личных данных</b>. У нас нет скрытых вирусов, мы не читаем ваши файлы и не передаем информацию третьим лицам.</p>
         </div>
+
+        <!-- БЛОК ПОДДЕРЖКИ С ВАШИМ КЛЮЧОМ -->
+        <div class="support-box">
+            <h3>🛠️ Поддержка и баги</h3>
+            <p>Нашли ошибку или есть идея? Напишите нам, и мы обязательно это исправим!</p>
+            
+            <form class="support-form" id="supportForm">
+                <input type="email" name="email" placeholder="Ваш Email (для ответа)" required>
+                <textarea name="message" placeholder="Опишите проблему или предложение..." required></textarea>
+                
+                <!-- ВАШ КЛЮЧ WEB3FORMS -->
+                <input type="hidden" name="access_key" value="cf240980-4d13-4f16-b7cb-5a3d7179388a">
+                
+                <button type="submit" id="submitBtn">Отправить сообщение</button>
+            </form>
+            <div id="form-status"></div>
+        </div>
         
         <div class="info">
-            Нажимая кнопку, вы скачиваете установочный файл.<br>
+            Нажимая кнопку скачивания, вы получаете установочный файл.<br>
             Разрешите установку из неизвестных источников в настройках Android.
         </div>
     </div>
+
+    <!-- СКРИПТ ДЛЯ ОТПРАВКИ ФОРМЫ -->
+    <script>
+        const form = document.getElementById('supportForm');
+        const statusDiv = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+            
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Отправка...";
+            statusDiv.style.display = "block";
+            statusDiv.style.color = "#f1c40f";
+            statusDiv.innerText = "Пожалуйста, подождите...";
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    statusDiv.style.color = "#4cd137";
+                    statusDiv.innerText = "✅ Сообщение успешно отправлено!";
+                    form.reset();
+                } else {
+                    console.log(response);
+                    statusDiv.style.color = "#ff4444";
+                    statusDiv.innerText = "❌ Ошибка: " + json.message;
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                statusDiv.style.color = "#ff4444";
+                statusDiv.innerText = "❌ Ошибка сети. Попробуйте позже.";
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Отправить сообщение";
+            });
+        });
+    </script>
 </body>
 </html>
