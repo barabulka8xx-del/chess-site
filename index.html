@@ -32,6 +32,35 @@
         .privacy-box p { font-size: 13px; color: #dddddd; margin-bottom: 0; line-height: 1.4; }
         .info { margin-top: 10px; font-size: 12px; color: #777; line-height: 1.4; }
 
+        /* --- СТИЛИ АВТОРИЗАЦИИ --- */
+        #user-badge {
+            position: fixed; top: 15px; right: 15px;
+            background: #222; padding: 10px 15px; border-radius: 20px;
+            border: 1px solid #444; font-size: 14px; cursor: pointer;
+            display: flex; align-items: center; gap: 10px; z-index: 900;
+        }
+        #user-badge:hover { background: #333; }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000;
+        }
+        .modal-content {
+            background: #222; padding: 25px; border-radius: 15px; width: 90%; max-width: 350px;
+            border: 1px solid #444; text-align: center;
+        }
+        .modal-content h2 { color: #f1c40f; margin-bottom: 20px; }
+        .modal-content input {
+            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px;
+            border: 1px solid #444; background: #111; color: #fff; font-size: 15px; outline: none;
+        }
+        .modal-content button {
+            width: 100%; padding: 12px; border: none; border-radius: 8px;
+            font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px;
+        }
+        .btn-login { background: #4cd137; color: white; }
+        .btn-cancel { background: #444; color: white; }
+        #auth-error { color: #ff4444; font-size: 13px; margin-bottom: 10px; display: none; }
+
         /* --- СТИЛИ ЧАТА --- */
         #chat-button {
             position: fixed; bottom: 20px; right: 20px;
@@ -51,10 +80,16 @@
         }
         #chat-header { background: #1e88e5; padding: 15px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; align-items: center; }
         #chat-header span { cursor: pointer; font-size: 20px; }
-        #chat-messages { flex: 1; padding: 10px; overflow-y: auto; text-align: left; display: flex; flex-direction: column; gap: 10px; }
-        .msg { max-width: 80%; padding: 8px 12px; border-radius: 10px; font-size: 14px; word-wrap: break-word; }
-        .msg.user { background: #333; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .msg.admin { background: #1e88e5; align-self: flex-start; border-bottom-left-radius: 2px; }
+        #chat-messages { flex: 1; padding: 10px; overflow-y: auto; text-align: left; display: flex; flex-direction: column; gap: 15px; }
+        
+        .msg-wrapper { display: flex; flex-direction: column; max-width: 85%; }
+        .msg-wrapper.user { align-self: flex-end; align-items: flex-end; }
+        .msg-wrapper.admin { align-self: flex-start; align-items: flex-start; }
+        .msg-name { font-size: 11px; color: #888; margin-bottom: 3px; padding: 0 5px; }
+        .msg { padding: 8px 12px; border-radius: 10px; font-size: 14px; word-wrap: break-word; }
+        .msg-wrapper.user .msg { background: #333; border-bottom-right-radius: 2px; }
+        .msg-wrapper.admin .msg { background: #1e88e5; border-bottom-left-radius: 2px; }
+
         #chat-input-area { display: flex; padding: 10px; border-top: 1px solid #444; background: #111; }
         #chat-input { flex: 1; padding: 10px; border: none; border-radius: 5px; background: #222; color: #fff; outline: none; }
         #chat-send { background: #1e88e5; color: #fff; border: none; padding: 0 15px; margin-left: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
@@ -68,20 +103,33 @@
         #admin-chat-area { display: none; flex-direction: column; height: 100%; position: absolute; top: 0; left: 0; width: 100%; background: #222; }
         #admin-chat-header { background: #e53935; padding: 10px; display: flex; align-items: center; gap: 10px; }
         #admin-chat-header button { background: #222; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
-        #admin-messages { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        #admin-messages { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
         #admin-input-area { display: flex; padding: 10px; border-top: 1px solid #444; background: #111; }
         #admin-input { flex: 1; padding: 10px; border: none; border-radius: 5px; background: #222; color: #fff; outline: none; }
         #admin-send { background: #e53935; color: #fff; border: none; padding: 0 15px; margin-left: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
+    <div id="user-badge" onclick="openLogin()">
+        <span id="user-info">Войти в аккаунт</span>
+    </div>
+
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-content">
+            <h2>Вход</h2>
+            <div id="auth-error"></div>
+            <input type="text" id="login-username" placeholder="Логин (как в игре)">
+            <input type="password" id="login-password" placeholder="Пароль">
+            <button class="btn-login" onclick="submitLogin()">Войти</button>
+            <button class="btn-cancel" onclick="closeLogin()">Отмена</button>
+        </div>
+    </div>
+
     <div class="container">
         <img src="icon.png" alt="Chess By Lord" class="logo" onerror="this.style.display='none'">
         <h1>Chess By Lord</h1>
         <p class="main-desc">Классические шахматы с умным ботом, игрой по сети и рейтинговой системой ЭЛО.</p>
-        
         <div class="version">Версия 1.1 (Последняя)</div>
-        
         <a href="game.apk" class="download-btn" download>Скачать APK</a>
 
         <div class="open-source-box">
@@ -101,14 +149,8 @@
             <h3>Ваша конфиденциальность</h3>
             <p>Игра абсолютно безопасна и <b>не собирает никаких личных данных</b>. У нас нет скрытых вирусов, мы не читаем ваши файлы и не передаем информацию третьим лицам.</p>
         </div>
-        
-        <div class="info">
-            Нажимая кнопку скачивания, вы получаете установочный файл.<br>
-            Разрешите установку из неизвестных источников в настройках Android.
-        </div>
     </div>
 
-    <!-- КНОПКА И ОКНО ЧАТА -->
     <div id="chat-button" onclick="toggleChat()">💬</div>
     
     <div id="chat-window">
@@ -142,14 +184,78 @@
     </div>
 
     <script>
-        // ИСПОЛЬЗУЕМ CORS-ПРОКСИ ДЛЯ ОБХОДА HTTPS БЛОКИРОВКИ
         const API_URL = "https://corsproxy.io/?http://node.waifly.com:27402";
         
+        let currentUser = localStorage.getItem("site_current_user") || null;
+        let currentElo = localStorage.getItem("site_current_elo") || null;
         let sessionId = localStorage.getItem("chat_session_id");
+
         if (!sessionId) {
             sessionId = "user_" + Math.random().toString(36).substring(2, 9);
             localStorage.setItem("chat_session_id", sessionId);
         }
+
+        function updateUserBadge() {
+            const info = document.getElementById("user-info");
+            if (currentUser) {
+                info.innerText = `👤 ${currentUser} (${currentElo} ELO)`;
+                sessionId = currentUser;
+                localStorage.setItem("chat_session_id", sessionId);
+            } else {
+                info.innerText = "Войти в аккаунт";
+            }
+        }
+
+        function openLogin() {
+            if (currentUser) {
+                if (confirm("Вы хотите выйти из аккаунта?")) {
+                    currentUser = null;
+                    currentElo = null;
+                    localStorage.removeItem("site_current_user");
+                    localStorage.removeItem("site_current_elo");
+                    sessionId = "user_" + Math.random().toString(36).substring(2, 9);
+                    localStorage.setItem("chat_session_id", sessionId);
+                    updateUserBadge();
+                    if(chatWindow.style.display === "flex") { toggleChat(); toggleChat(); }
+                }
+                return;
+            }
+            document.getElementById("login-modal").style.display = "flex";
+            document.getElementById("auth-error").style.display = "none";
+        }
+
+        function closeLogin() { document.getElementById("login-modal").style.display = "none"; }
+
+        function submitLogin() {
+            const u = document.getElementById("login-username").value.trim();
+            const p = document.getElementById("login-password").value.trim();
+            const err = document.getElementById("auth-error");
+            if(!u || !p) { err.innerText = "Заполните все поля!"; err.style.display = "block"; return; }
+
+            fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ login: u, password: p })
+            })
+            .then(async res => {
+                if (res.status === 200) {
+                    const data = await res.json();
+                    currentUser = u;
+                    currentElo = data.elo;
+                    localStorage.setItem("site_current_user", currentUser);
+                    localStorage.setItem("site_current_elo", currentElo);
+                    sessionId = currentUser;
+                    localStorage.setItem("chat_session_id", sessionId);
+                    updateUserBadge();
+                    closeLogin();
+                } else {
+                    err.innerText = "Неверный логин или пароль";
+                    err.style.display = "block";
+                }
+            })
+            .catch(() => { err.innerText = "Ошибка сервера"; err.style.display = "block"; });
+        }
+        updateUserBadge();
 
         let isAdmin = false;
         let currentAdminTarget = null;
@@ -174,7 +280,6 @@
             if (e.key === "Enter") func();
         }
 
-        // --- ПОЛЬЗОВАТЕЛЬ ---
         function sendUserMsg() {
             const input = document.getElementById("chat-input");
             const text = input.value.trim();
@@ -186,12 +291,24 @@
                 return;
             }
 
+            const senderName = currentUser || "Гость";
+
             input.value = "";
             fetch(`${API_URL}/chat/send`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ session_id: sessionId, sender: "user", text: text })
-            }).then(() => loadUserMessages());
+                body: JSON.stringify({ session_id: sessionId, sender: "user", text: text, name: senderName })
+            })
+            .then(async (res) => {
+                if (res.status === 400) {
+                    const errorData = await res.json();
+                    alert(errorData.detail || "Сообщение заблокировано анти-спам системой.");
+                } else if (!res.ok) {
+                    alert("Ошибка при отправке сообщения.");
+                }
+                loadUserMessages();
+            })
+            .catch(() => alert("Ошибка сети."));
         }
 
         function loginAdmin() {
@@ -214,7 +331,29 @@
                     alert("Неверный пароль администратора!");
                 }
             })
-            .catch(() => alert("Ошибка сервера. Проверьте, запущен ли сервер на Waifly."));
+            .catch(() => alert("Ошибка сервера."));
+        }
+
+        function renderMsg(msg, isAdminView) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "msg-wrapper " + msg.sender;
+            
+            const nameDiv = document.createElement("div");
+            nameDiv.className = "msg-name";
+            
+            if (isAdminView) {
+                nameDiv.innerText = msg.sender === "user" ? (msg.name || "Игрок") : "Вы (Админ)";
+            } else {
+                nameDiv.innerText = msg.sender === "user" ? "Вы" : "Техподдержка";
+            }
+
+            const bubble = document.createElement("div");
+            bubble.className = "msg";
+            bubble.innerText = msg.text;
+
+            wrapper.appendChild(nameDiv);
+            wrapper.appendChild(bubble);
+            return wrapper;
         }
 
         function loadUserMessages() {
@@ -223,10 +362,7 @@
             .then(data => {
                 chatMessages.innerHTML = "";
                 data.history.forEach(msg => {
-                    const div = document.createElement("div");
-                    div.className = "msg " + msg.sender;
-                    div.innerText = msg.text;
-                    chatMessages.appendChild(div);
+                    chatMessages.appendChild(renderMsg(msg, false));
                 });
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             });
@@ -234,7 +370,6 @@
             chatInterval = setInterval(loadUserMessages, 3000);
         }
 
-        // --- АДМИН ---
         function loadAdminSessions() {
             fetch(`${API_URL}/chat/sessions`)
             .then(res => res.json())
@@ -274,12 +409,7 @@
                 const box = document.getElementById("admin-messages");
                 box.innerHTML = "";
                 data.history.forEach(msg => {
-                    const div = document.createElement("div");
-                    div.className = "msg " + msg.sender;
-                    div.style.alignSelf = msg.sender === "user" ? "flex-start" : "flex-end";
-                    div.style.background = msg.sender === "user" ? "#333" : "#e53935";
-                    div.innerText = msg.text;
-                    box.appendChild(div);
+                    box.appendChild(renderMsg(msg, true));
                 });
                 box.scrollTop = box.scrollHeight;
             });
@@ -293,10 +423,11 @@
             const text = input.value.trim();
             if (!text) return;
             input.value = "";
+            
             fetch(`${API_URL}/chat/send`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ session_id: currentAdminTarget, sender: "admin", text: text })
+                body: JSON.stringify({ session_id: currentAdminTarget, sender: "admin", text: text, name: "Админ" })
             }).then(() => loadAdminMessages());
         }
     </script>
