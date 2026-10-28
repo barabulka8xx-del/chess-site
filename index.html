@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess By Lord - Скачать</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+            color: #ffffff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 100vh; text-align: center; padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05); padding: 40px 20px;
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 400px; width: 100%;
+        }
+        .logo {
+            width: 120px; height: 120px; border-radius: 25px;
+            margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            object-fit: cover;
+        }
+        h1 { font-size: 28px; margin-bottom: 10px; color: #f1c40f; }
+        p { color: #bbbbbb; margin-bottom: 30px; line-height: 1.5; font-size: 15px;}
+        .version {
+            font-size: 14px; background: #333; padding: 5px 15px;
+            border-radius: 20px; display: inline-block; margin-bottom: 20px;
+            color: #4cd137; font-weight: bold;
+        }
+        .download-btn {
+            display: block; background: #4cd137; color: white;
+            text-decoration: none; padding: 18px 20px; border-radius: 15px;
+            font-size: 20px; font-weight: bold; transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(76, 209, 55, 0.3);
+        }
+        .download-btn:active { background: #44bd32; transform: scale(0.98); }
+        .info { margin-top: 25px; font-size: 12px; color: #777; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Иконка подтянется из файла icon.png в этой же папке -->
+        <img src="icon.png" alt="Chess By Lord" class="logo" onerror="this.style.display='none'">
+        
+        <h1>Chess By Lord</h1>
+        <p>Классические шахматы с умным ботом, игрой по сети и рейтинговой системой ЭЛО.</p>
+        
+        <div class="version">Версия 1.0 (Последняя)</div>
+        
+        <!-- Кнопка скачивания. Ссылка ведет на файл game.apk -->
+        <a href="game.apk" class="download-btn" download>⬇️ Скачать APK</a>
+        
+        <div class="info">
+            Нажимая кнопку, вы скачиваете установочный файл.<br>
+            Разрешите установку из неизвестных источников в настройках Android.
+        </div>
+    </div>
+</body>
+</html>
