@@ -142,7 +142,9 @@
     </div>
 
     <script>
-        const API_URL = "http://node.waifly.com:27402";
+        // ИСПОЛЬЗУЕМ CORS-ПРОКСИ ДЛЯ ОБХОДА HTTPS БЛОКИРОВКИ
+        const API_URL = "https://corsproxy.io/?http://node.waifly.com:27402";
+        
         let sessionId = localStorage.getItem("chat_session_id");
         if (!sessionId) {
             sessionId = "user_" + Math.random().toString(36).substring(2, 9);
@@ -212,7 +214,7 @@
                     alert("Неверный пароль администратора!");
                 }
             })
-            .catch(() => alert("Ошибка сервера. Попробуйте позже."));
+            .catch(() => alert("Ошибка сервера. Проверьте, запущен ли сервер на Waifly."));
         }
 
         function loadUserMessages() {
