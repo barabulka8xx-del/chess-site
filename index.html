@@ -248,6 +248,8 @@
         let currentElo = localStorage.getItem("site_current_elo") || null;
         let sessionId = localStorage.getItem("chat_session_id");
         let loginSource = 'site'; 
+        
+        let adminToken = null; // Токен для безопасной работы админки
 
         if (!sessionId) {
             sessionId = "user_" + Math.random().toString(36).substring(2, 9);
@@ -436,11 +438,14 @@
             })
             .then(res => {
                 if (res.status === 200) {
-                    isAdmin = true;
-                    userView.style.display = "none";
-                    adminPanel.style.display = "flex";
-                    clearInterval(chatInterval);
-                    backToAdminMenu();
+                    res.json().then(data => {
+                        adminToken = data.token; // Получаем и сохраняем токен
+                        isAdmin = true;
+                        userView.style.display = "none";
+                        adminPanel.style.display = "flex";
+                        clearInterval(chatInterval);
+                        backToAdminMenu();
+                    });
                 } else {
                     alert("Неверный пароль администратора!");
                 }
@@ -629,10 +634,11 @@
         }
 
         function warnUser(target) {
+            if (!adminToken) return alert("Сначала авторизуйтесь как админ!");
             fetch(`${API_URL}/admin/ban_user`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ login: "DEV$DEV", password: "AKS.2GmOZx#Z", target: target, action: "warn" })
+                body: JSON.stringify({ token: adminToken, target: target, action: "warn" })
             })
             .then(res => {
                 if (res.ok) alert(`Предупреждение отправлено игроку ${target}!`);
@@ -642,11 +648,12 @@
         }
 
         function banUser(target) {
+            if (!adminToken) return alert("Сначала авторизуйтесь как админ!");
             if (!confirm(`Вы уверены, что хотите забанить ${target}?`)) return;
             fetch(`${API_URL}/admin/ban_user`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ login: "DEV$DEV", password: "AKS.2GmOZx#Z", target: target, action: "ban" })
+                body: JSON.stringify({ token: adminToken, target: target, action: "ban" })
             })
             .then(res => {
                 if (res.ok) {
